@@ -3,15 +3,15 @@
 #pragma D option temporal
 
 syscall::read:entry
-/pid == $target/
+/pid == $target && fds[arg0].fi_pathname == "/home/student/nodeconf/words"/
 {
-  printf("read request %d bytes from file = %s\n", arg2, fds[arg0].fi_pathname);
+	printf("read request %d bytes\n", arg2);
 }
 
 syscall::write:entry
-/pid == $target/
+/pid == $target && fds[arg0].fi_pathname == "/home/student/nodeconf/tmp/words.save"/
 {
-	printf("write request %d bytes to file = %s\n", arg2, fds[arg0].fi_pathname);
+	printf("write request %d bytes\n", arg2);
 }
 
 syscall::unlink*:entry
